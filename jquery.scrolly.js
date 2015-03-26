@@ -4,6 +4,7 @@
  *  Author: Victor C. / Octave & Octave web agency
  *  Licence: MIT
  */
+ /* Left-position added by RB [github.com/arebe] */
 (function ( $, window, document, undefined ) {
     // Create the defaults once
     var pluginName = 'scrolly',
@@ -31,6 +32,7 @@
         this.height = this.$element.outerHeight(true);
         this.velocity = this.$element.attr('data-velocity');
         this.bgStart = parseInt(this.$element.attr('data-fit'), 10);
+        this.bgLeft = parseInt(this.$element.attr('data-left'), 10);
 
         $(document).scroll(function(){
             self.didScroll = true;
@@ -48,6 +50,7 @@
         var dT =  $(window).scrollTop(),
             wH = $(window).height(),
             position = this.startPosition;
+            position_left = '50%';
 
         if(this.offsetTop >= (dT+wH)) {
             this.$element.addClass('scrolly-invisible');
@@ -60,9 +63,10 @@
         }
         // Fix background position
         if(this.bgStart){ position = position + this.bgStart; }
+        if(this.bgLeft){ position_left = this.bgLeft; }
 
         if(this.options.bgParallax === true) {
-            this.$element.css({backgroundPosition: '50% '+position+'px'});
+            this.$element.css({backgroundPosition: position_left+'% '+position+'px'});
         } else {
             this.$element.css({top: position});
         }
